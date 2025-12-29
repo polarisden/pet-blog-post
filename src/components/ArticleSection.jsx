@@ -4,7 +4,7 @@ import { Search,ChevronDown } from 'lucide-react';
 function ArticleSection(){
   return (
     <>
-      <div className='desktop:px-[120px] desktop:pb-[120px]'>
+      <div className='desktop:px-[120px] desktop:pb-[48px]'>
         <p className="p-4 text-headline-3 text-brown-600 desktop:pb-8 desktop:pl-0 desktop:pt-0">Latest articles</p>
         <div className="bg-brown-200 p-4 h-[172px] desktop:rounded-[16px] desktop:h-[80px] desktop:flex desktop:items-center desktop:justify-between">
           <div className='hidden desktop:flex desktop:gap-2 desktop:text-body-1 desktop:text-brown-400 '>
