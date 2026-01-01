@@ -11,7 +11,7 @@ function HeroSection(){
   				<div className="absolute inset-0 bg-[linear-gradient(0deg,rgba(190,187,177,0.25),rgba(190,187,177,0.25))]"></div>
 				</div>
 				<div className="flex flex-col gap-3 desktop:w-[347px] desktop:h-[284px]">
-					<div className=" flex flex-col gap-2">
+					<div className=" flex flex-col gap-1">
 						<span className="text-body-3 text-brown-400">-Author</span>	
 						<h3 className="text-headline-3 text-brown-500">Thompson P.</h3>
 					</div>
