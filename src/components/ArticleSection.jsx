@@ -37,15 +37,26 @@ const categoryColors = {
   }
 }
 
-export function SelectDemo() {
+export function SelectDemo({ selectedCategory, setSelectedCategory }) {
   return (
-    <Select>
+    <Select
+      value={selectedCategory}
+      onValueChange={(value) => setSelectedCategory(value)}
+    >
       <SelectTrigger className="!text-body-1 !text-brown-400 bg-white w-full !h-[48px] rounded-[8px]  pl-4 pr-3 border border-brown-300 desktop:hidden">
         <SelectValue placeholder="Select a Category" />
       </SelectTrigger>
       <SelectContent position="popper" sideOffset={4}>
         <SelectGroup>
-          {categories.map((value,index) => <SelectItem value={value}>{value}</SelectItem>)}
+          {categories.map((value,index) => (
+            <SelectItem
+              key={index}
+              value={value}
+              className={`cursor-pointer rounded-[8px] shadow ${(value === selectedCategory) ? 'bg-[#a0a0a0] text-brown-500' : ''}`}
+            >
+              {value}
+            </SelectItem>
+          ))}
         </SelectGroup>
       </SelectContent>
     </Select>
@@ -67,13 +78,15 @@ function ArticleSection(props){
             onClick={() => props.setSelectedCategory(value)}
             >{value}</button>)}
           </div>
-          {console.log("oatty =",props.selectedCategory)}
           <div className='relative'>
-            <input type="text" placeholder="Search" className="text-[14.5px] text-black bg-white w-full desktop:w-[360px] h-[48px] rounded-[8px] py-3 pl-4 pr-3 border border-brown-300"/>
+            <input type="text" placeholder="Search" className="text-[14.5px] text-black bg-white w-full desktop:w-[360px] h-[48px] rounded-[8px] py-3 pl-4 pr-3 border border-brown-300 cursor-pointer-none"/>
             <Search className='absolute right-[12px] top-[12px] text-brown-600'/>
           </div>
           <p className='text-body-1 text-brown-400 pt-4 pb-1 desktop:hidden'>Category</p>
-          <SelectDemo />
+          <SelectDemo
+            selectedCategory={props.selectedCategory}
+            setSelectedCategory={props.setSelectedCategory}
+          />
           {/* <div className='relative desktop:hidden'>
             <input type="text" placeholder="Highlight" className="text-body-1 text-brown-400 bg-white w-full h-[48px] rounded-[8px] py-3 pl-4 pr-3 border border-brown-300"/>
             <ChevronDown className='absolute right-[12px] top-[12px] text-brown-600'/>
