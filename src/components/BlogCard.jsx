@@ -1,11 +1,31 @@
 function BlogCard(props) {
+  const categoryColors = {
+    Highlight: {
+      text: 'text-brand-green',
+      bg: 'bg-brand-green-soft'
+    },
+    Cat: {
+      text: 'text-brand-blue',
+      bg: 'bg-brand-blue-soft'
+    },
+    Inspiration: {
+      text: 'text-brand-purple',
+      bg: 'bg-brand-purple-soft'
+    },
+    General: {
+      text: 'text-brand-orange',
+      bg: 'bg-brand-orange-soft'
+    }
+  }
+
+
   return (
     <>
       <div className="flex flex-col px-4 desktop:px-0 desktop:pb-6">
         <div className="flex flex-col gap-4">
           <img src={props.image} className="rounded-[16px] h-[212px] w-[343px] object-cover desktop:w-[590px] desktop:h-[360px]" alt={props.title}/>
           <div className="flex flex-col gap-2">
-            <p className="py-1 px-3 text-body-2 text-brand-green bg-brand-green-soft rounded-full w-fit h-[30px]">{props.category}</p>
+            <p className={`py-1 px-3 text-body-2 rounded-full w-fit h-[30px] ${categoryColors?.[props?.category].text} ${categoryColors?.[props?.category].bg}`}>{props.category}</p>
             <h4 className="text-headline-4 text-brown-600">{props.title}</h4>
             <p className="text-body-2 text-brown-400">{props.description}</p>
           </div>

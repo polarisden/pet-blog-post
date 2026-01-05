@@ -20,9 +20,23 @@
 
   /* Colors - Brand */
   --color-brand-orange: #f2b68c;
+  --color-brand-red: #eb5164;
+
+  /* Green */
   --color-brand-green: #12b279;
   --color-brand-green-soft: #d7f2e9;
-  --color-brand-red: #eb5164;
+
+  /* Blue */
+  --color-brand-blue: #0ea5e9;
+  --color-brand-blue-soft: #e0f2fe;
+
+  /* Purple */
+  --color-brand-purple: #a855f7;
+  --color-brand-purple-soft: #f3e8ff;
+
+  /* Orange */
+  --color-brand-orange: #f97316;
+  --color-brand-orange-soft: #ffedd5;
 
   /* Font Sizes */
   --text-headline-1: 3.25rem;

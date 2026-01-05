@@ -10,14 +10,15 @@ import BlogCard from './components/BlogCard'
 import { blogPosts } from './assets/blogPosts'
 
 function App() {
+  const [selectedCategory, setSelectedCategory] = useState("All")
+
   return (
     <>
       <NavBar />
       <HeroSection />
-      <ArticleSection />
-
+      <ArticleSection selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} />
       <div className='flex flex-col gap-12 pt-6 desktop:px-[120px] desktop:pb-[80px] desktop:grid desktop:grid-cols-2 desktop:gap-2.5'>
-      {blogPosts.map((value, index) => <BlogCard image={value.image} category={value.category} title={value.title} description={value.description} author={value.author} date={value.date} />) }
+      {blogPosts.map((value, index) => (value.category === selectedCategory || selectedCategory === "All")? <BlogCard selectedCategory={selectedCategory} image={value.image} category={value.category} title={value.title} description={value.description} author={value.author} date={value.date} /> : null) }
       </div>
       <Footer />
     </>

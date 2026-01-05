@@ -83,4 +83,74 @@ export const blogPosts = [
     content:
       "## 1. Understanding Feline Nutritional Needs\n\nExplore the unique dietary requirements of cats as obligate carnivores.\n\n## 2. Choosing the Right Cat Food\n\nLearn how to read cat food labels and select high-quality options for your pet.\n\n## 3. Wet vs. Dry Food\n\nUnderstand the pros and cons of wet and dry cat food and how to incorporate both into your cat's diet.\n\n## 4. Portion Control and Feeding Schedule\n\nDiscover how to determine the right portion sizes and establish a healthy feeding routine.\n\n## 5. Special Dietary Considerations\n\nLearn about nutrition for cats with specific health conditions or at different life stages.",
   },
+  {
+    id: 7,
+    image:
+      "https://img.freepik.com/free-psd/cat-isolated-white-background_23-2151133772.jpg",
+    category: "Cat",
+    title: "Top 5 Tips for a Happier, Healthier Pet",
+    description:
+      "Simple, practical tips to keep your pet mentally stimulated, physically active, and emotionally fulfilled every day.",
+    author: "Thompson P.",
+    date: "01 October 2024",
+    likes: 842,
+    content:
+      "## 1. Daily Playtime\n\nEngage your pet in daily play sessions to strengthen your bond and keep them active.\n\n## 2. Balanced Nutrition\n\nChoose high-quality food tailored to your pet's age, size, and activity level.\n\n## 3. Regular Vet Checkups\n\nSchedule routine checkups to catch potential health issues early.\n\n## 4. Mental Stimulation\n\nUse puzzle toys and training sessions to challenge your pet's mind.\n\n## 5. Consistent Routine\n\nMaintain a consistent daily routine to help your pet feel secure and relaxed.",
+  },
+  {
+    id: 8,
+    image:
+      "https://img.freepik.com/free-vector/vector-flat-style-cats-illustration-set-isolated-white-background_8130-952.jpg?t=st=1767600792~exp=1767604392~hmac=a3258b5477af2a3a7e6c0ac9e4c0a0bafe0eea5c2baaac4a2b3ebf24602896bb&w=1480",
+    category: "Cat",
+    title: "Creating the Perfect Home Environment for Your Cat",
+    description:
+      "Design a safe, enriching, and comfortable living space that caters to your cat's natural instincts.",
+    author: "Thompson P.",
+    date: "05 October 2024",
+    likes: 632,
+    content:
+      "## 1. Vertical Spaces\n\nProvide cat trees and shelves to satisfy your cat's love of climbing.\n\n## 2. Safe Hiding Spots\n\nCreate cozy nooks where your cat can retreat and feel secure.\n\n## 3. Interactive Toys\n\nRotate toys regularly to keep playtime interesting and engaging.\n\n## 4. Litter Box Placement\n\nPlace litter boxes in quiet, accessible areas to reduce stress.\n\n## 5. Window Views\n\nSet up perches near windows so your cat can watch the outside world.",
+  },
+  {
+    id: 9,
+    image:
+      "https://img.freepik.com/free-vector/hand-drawn-background-international-dog-day-celebration_23-2150598607.jpg?t=st=1767600842~exp=1767604442~hmac=0c29cd09c1db7313ce1b7d9715ff728b6134a6a7e4dbf53a0bcade2f74e9d61f&w=1480",
+    category: "Highlight",
+    title: "Morning Routines That Set You and Your Pet Up for Success",
+    description:
+      "Start the day with intention using simple rituals that benefit both you and your furry companion.",
+    author: "Thompson P.",
+    date: "10 October 2024",
+    likes: 274,
+    content:
+      "## 1. Gentle Wake-Up\n\nBegin the day with calm interactions instead of rushing.\n\n## 2. Hydration and Breakfast\n\nEnsure both you and your pet start the day with water and a balanced meal.\n\n## 3. Short Walk or Play Session\n\nIncorporate light exercise to boost mood and energy.\n\n## 4. Mindful Moments\n\nSpend a few minutes in quiet bonding, such as petting or brushing.\n\n## 5. Consistency\n\nRepeat your routine daily to build a sense of stability and comfort.",
+  },
+  {
+    id: 10,
+    image:
+      "https://img.freepik.com/free-vector/hand-drawn-pet-sitting-facebook-cover_23-2149776410.jpg?t=st=1767600875~exp=1767604475~hmac=698979cb2659fab157996ef8533b1ae3379e97d979f21a11832516fa256e2d2b&w=1480",
+    category: "Inspiration",
+    title: "How Pets Improve Mental Health: A Science-Backed Look",
+    description:
+      "Explore the emotional and psychological benefits of sharing your life with a pet, backed by research.",
+    author: "Thompson P.",
+    date: "15 October 2024",
+    likes: 968,
+    content:
+      "## 1. Stress Reduction\n\nLearn how interacting with pets can lower cortisol levels and promote relaxation.\n\n## 2. Combating Loneliness\n\nDiscover how pets provide companionship and emotional support.\n\n## 3. Encouraging Routine\n\nUnderstand how caring for a pet can create healthy daily structure.\n\n## 4. Social Connections\n\nSee how pets can help spark conversations and new friendships.\n\n## 5. Emotional Resilience\n\nExplore how the unconditional love of pets supports emotional healing.",
+  },
+  {
+    id: 11,
+    image:
+      "https://img.freepik.com/free-photo/asia-woman-walking-her-husky-dog-outdoors_23-2150764843.jpg?t=st=1767600934~exp=1767604534~hmac=608aa108b5ea07b0bb6a69edf865e1465a10f9e0636471e405de4f04b2f05419&w=1480",
+    category: "Highlight",
+    title: "Weekend Adventures: Fun Outdoor Activities With Your Dog",
+    description:
+      "Plan unforgettable weekend outings that keep your dog active, engaged, and connected to you.",
+    author: "Thompson P.",
+    date: "20 October 2024",
+    likes: 411,
+    content:
+      "## 1. Scenic Hikes\n\nChoose dog-friendly trails that match your dog's fitness level.\n\n## 2. Beach or Lake Days\n\nIntroduce your dog to water safely with proper supervision.\n\n## 3. Park Picnics\n\nPack a picnic and enjoy time together in a local park.\n\n## 4. Training on the Go\n\nUse outdoor time to reinforce basic commands in new environments.\n\n## 5. Post-Adventure Care\n\nCheck your dog for ticks, clean their paws, and provide plenty of water and rest after outings.",
+  },
 ];
