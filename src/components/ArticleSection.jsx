@@ -161,21 +161,19 @@ function ArticleSection(){
           <SelectDemo
             selectedCategory={selectedCategory}
             setSelectedCategory={setSelectedCategory}
+            onCategoryChange={handleCategoryChange}
           />
         </div>
       </div>
 
       {/* blog posts */}
-      <div className='desktop:flex desktop:flex-col items-center'>
+      <div className='flex flex-col items-center'>
         <div className='flex flex-col gap-12 pt-6 desktop:w-[1440px] desktop:px-[120px] desktop:pb-[60px] desktop:grid desktop:grid-cols-2 desktop:gap-2.5'>
-          
-          {/* แสดง error ถ้ามี */}
           {error && <p className="text-center text-red-600">Error loading posts: {error.message}</p>}
-          
-          {/* แสดง posts เสมอ (ไม่ต้องเช็ค isLoading) */}
           {filteredPostData.map((value, index) => (
             <BlogCard 
-              key={value.id} 
+              key={value.id}
+              postId={value.id}
               selectedCategory={selectedCategory} 
               image={value.image} 
               category={value.category} 
@@ -188,7 +186,7 @@ function ArticleSection(){
         </div>
         {hasMore && (
           <button 
-            className='desktop:text-body-1 desktop:underline desktop:underline-offset-1 desktop:text-brown-600 desktop:pb-[80px] desktop:cursor-pointer'
+            className='text-body-1 underline underline-offset-2 text-brown-600 py-6 cursor-pointer active:text-brown-400 desktop:pb-[80px] desktop:pt-0 desktop:hover:text-brown-400 transition-colors'
             onClick={() => setPage(page + 1)}
             disabled={isLoading}
           >
