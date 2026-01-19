@@ -2,8 +2,7 @@ import { Search,ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import * as React from "react"
 import BlogCard from './BlogCard'
-import { blogPosts } from '../assets/blogPosts'
-
+import useReqData from '@/hooks/useReqData';
 import {
   Select,
   SelectContent,
@@ -13,6 +12,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+
+export function SelectDemo({ selectedCategory, setSelectedCategory, onCategoryChange }) {
+  return (
+    <Select
+      value={selectedCategory}
+      onValueChange={(value) => {
+        setSelectedCategory(value)
+        if (onCategoryChange) {
+          onCategoryChange(value)
+        }
+      }}
+    >
+      <SelectTrigger className="!text-body-1 !text-brown-400 bg-white w-full !h-[48px] rounded-[8px]  pl-4 pr-3 border border-brown-300 desktop:hidden">
+        <SelectValue placeholder="Select a Category" />
+      </SelectTrigger>
+      <SelectContent position="popper" sideOffset={4}>
+        <SelectGroup>
+          {categories.map((value,index) => (
+            <SelectItem
+              key={index}
+              value={value}
+              className={`cursor-pointer rounded-[8px] shadow ${(value === selectedCategory) ? 'bg-[#a0a0a0] text-brown-500' : ''}`}
+            >
+              {value}
+            </SelectItem>
+          ))}
+        </SelectGroup>
+      </SelectContent>
+    </Select>
+  )
+}
 
 const categories = ["All","Highlight", "Cat", "Inspiration", "General"];
 
@@ -39,55 +69,53 @@ const categoryColors = {
   }
 }
 
-export function SelectDemo({ selectedCategory, setSelectedCategory }) {
-  return (
-    <Select
-      value={selectedCategory}
-      onValueChange={(value) => setSelectedCategory(value)}
-    >
-      <SelectTrigger className="!text-body-1 !text-brown-400 bg-white w-full !h-[48px] rounded-[8px]  pl-4 pr-3 border border-brown-300 desktop:hidden">
-        <SelectValue placeholder="Select a Category" />
-      </SelectTrigger>
-      <SelectContent position="popper" sideOffset={4}>
-        <SelectGroup>
-          {categories.map((value,index) => (
-            <SelectItem
-              key={index}
-              value={value}
-              className={`cursor-pointer rounded-[8px] shadow ${(value === selectedCategory) ? 'bg-[#a0a0a0] text-brown-500' : ''}`}
-            >
-              {value}
-            </SelectItem>
-          ))}
-        </SelectGroup>
-      </SelectContent>
-    </Select>
-  )
+// convert function from ISO 8601 date format to like "11 September 2024"
+function formatDate(dateString) {
+  if (!dateString) return '';
+  
+  const date = new Date(dateString);
+  const day = date.getDate();
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  const month = monthNames[date.getMonth()];
+  const year = date.getFullYear();
+  
+  return `${day} ${month} ${year}`;
 }
 
 
 function ArticleSection(){
   const [search, setSearch] = useState("")
   const [selectedCategory, setSelectedCategory] = useState("All")
-  const [filteredPosts, setFilteredPosts] = useState(blogPosts)
+  const [posts, setPosts] = useState([])
+  const [page, setPage] = useState(1)
+  const { postData ,isLoading, error, fetchData, hasMore, setHasMore } = useReqData(setPosts)
+
+  // filter data based on search term
+  const filteredPostData = posts.filter((item) => {
+    const searchLower = search.toLowerCase()
+    const matchesSearch = !search || 
+      item.title.toLowerCase().includes(searchLower) ||
+      item.description.toLowerCase().includes(searchLower) ||
+      item.author.toLowerCase().includes(searchLower)
+    return matchesSearch
+  }) 
+
+  const handleCategoryChange = (newCategory) => {
+    if (newCategory !== selectedCategory) {
+      setPosts([])
+      setPage(1)
+      setHasMore(true)
+      setSelectedCategory(newCategory)
+    }
+  }
 
   useEffect(() => {
-    const filtered = blogPosts.filter((post) => {
-      // กรองตาม category
-      const matchesCategory = selectedCategory === "All" || post.category === selectedCategory
-      
-      // กรองตาม search term (ค้นหาใน title, description, author)
-      const searchLower = search.toLowerCase()
-      const matchesSearch = !search || 
-        post.title.toLowerCase().includes(searchLower) ||
-        post.description.toLowerCase().includes(searchLower) ||
-        post.author.toLowerCase().includes(searchLower)
-      
-      return matchesCategory && matchesSearch
-    })
-    
-    setFilteredPosts(filtered)
-  }, [search, selectedCategory])
+    const formatCategory = selectedCategory === "All" ? "" : selectedCategory
+    fetchData({ page: page, category: formatCategory })
+  }, [page, selectedCategory])
 
   return (
     <>
@@ -95,7 +123,9 @@ function ArticleSection(){
       <div className='desktop:px-[120px] desktop:pb-[48px]'>
         <p className="p-4 text-headline-3 text-brown-600 desktop:pb-8 desktop:pl-0 desktop:pt-0">Latest articles</p>
         <div className="bg-brown-200 p-4 h-[172px] desktop:rounded-[16px] desktop:h-[80px] desktop:flex desktop:items-center desktop:justify-between">
-          <div className='hidden desktop:flex desktop:gap-2 desktop:text-body-1 desktop:text-brown-400 '>
+          
+          {/* categories buttone */}
+          <div className='hidden desktop:flex desktop:gap-2 desktop:text-body-1 desktop:text-brown-400'>
             {categories.map((value,index) => {
               const isSelected = value === selectedCategory
               return (
@@ -106,12 +136,17 @@ function ArticleSection(){
                       ? `${categoryColors[selectedCategory]?.text} ${categoryColors[selectedCategory]?.bg} cursor-default` 
                       : 'cursor-pointer desktop:hover:rounded-[8px] desktop:hover:text-brown-500 desktop:hover:bg-brown-300'
                   }`}
-                  onClick={() => setSelectedCategory(value)}
+                  onClick={() => {
+                    setSelectedCategory(value)
+                    handleCategoryChange(value)
+                  }}
                   disabled={isSelected} 
                 >{value}</button>
               )
             })}
           </div>
+
+          {/* search */}
           <div className='relative'>
             <input 
               type="text" 
@@ -131,19 +166,35 @@ function ArticleSection(){
       </div>
 
       {/* blog posts */}
-      <div className='flex flex-col gap-12 pt-6 desktop:px-[120px] desktop:pb-[80px] desktop:grid desktop:grid-cols-2 desktop:gap-2.5'>
-        {filteredPosts.map((value, index) => (
-          <BlogCard 
-            key={index} 
-            selectedCategory={selectedCategory} 
-            image={value.image} 
-            category={value.category} 
-            title={value.title} 
-            description={value.description} 
-            author={value.author} 
-            date={value.date} 
-          />
-        ))}
+      <div className='desktop:flex desktop:flex-col items-center'>
+        <div className='flex flex-col gap-12 pt-6 desktop:w-[1440px] desktop:px-[120px] desktop:pb-[60px] desktop:grid desktop:grid-cols-2 desktop:gap-2.5'>
+          
+          {/* แสดง error ถ้ามี */}
+          {error && <p className="text-center text-red-600">Error loading posts: {error.message}</p>}
+          
+          {/* แสดง posts เสมอ (ไม่ต้องเช็ค isLoading) */}
+          {filteredPostData.map((value, index) => (
+            <BlogCard 
+              key={value.id} 
+              selectedCategory={selectedCategory} 
+              image={value.image} 
+              category={value.category} 
+              title={value.title} 
+              description={value.description} 
+              author={value.author} 
+              date={formatDate(value.date)} 
+            />
+          ))}
+        </div>
+        {hasMore && (
+          <button 
+            className='desktop:text-body-1 desktop:underline desktop:underline-offset-1 desktop:text-brown-600 desktop:pb-[80px] desktop:cursor-pointer'
+            onClick={() => setPage(page + 1)}
+            disabled={isLoading}
+          >
+            {isLoading ? "Loading..." : "View more"}
+          </button>
+        )}
       </div>
     </>
   )
