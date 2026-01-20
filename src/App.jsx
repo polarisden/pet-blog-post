@@ -1,19 +1,19 @@
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './index.css'
-import NavBar from './components/NavBar'
-import HeroSection from './components/HeroSection'
-import Footer from './components/Footer'
-import ArticleSection from './components/ArticleSection'
-
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage'
+import ViewPostPage from './pages/ViewPostPage';
+import NotFoundPage from './pages/NotFoundPage';
+import SignupLoginPage from './pages/SignupLoginPage';
 function App() {
   return (
-    <>
-      <NavBar />
-      <HeroSection />
-      <ArticleSection />
-      <Footer />
-    </>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LandingPage />}/>
+        <Route path="/posts/:postId" element={<ViewPostPage />}/>
+        <Route path='*' element={<NotFoundPage />}/>
+        <Route path='/sign-up' element={<SignupLoginPage />}/>
+      </Routes>
+    </BrowserRouter>
   );
 }
 

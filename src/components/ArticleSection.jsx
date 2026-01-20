@@ -1,8 +1,9 @@
-import { Search,ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import * as React from "react"
 import BlogCard from './BlogCard'
 import useReqData from '@/hooks/useReqData';
+import { formatDate } from '@/utils/formatDate';
 import {
   Select,
   SelectContent,
@@ -12,6 +13,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { Combobox } from "@/components/ui/combobox"
 
 export function SelectDemo({ selectedCategory, setSelectedCategory, onCategoryChange }) {
   return (
@@ -68,23 +70,6 @@ const categoryColors = {
     bg: "bg-[#a0a0a0]"
   }
 }
-
-// convert function from ISO 8601 date format to like "11 September 2024"
-function formatDate(dateString) {
-  if (!dateString) return '';
-  
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const monthNames = [
-    "January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const month = monthNames[date.getMonth()];
-  const year = date.getFullYear();
-  
-  return `${day} ${month} ${year}`;
-}
-
 
 function ArticleSection(){
   const [search, setSearch] = useState("")
@@ -147,16 +132,12 @@ function ArticleSection(){
           </div>
 
           {/* search */}
-          <div className='relative'>
-            <input 
-              type="text" 
-              placeholder="Search" 
-              className="text-[14.5px] text-black bg-white w-full desktop:w-[360px] h-[48px] rounded-[8px] py-3 pl-4 pr-3 border border-brown-300 cursor-pointer-none"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <Search className='absolute right-[12px] top-[12px] text-brown-600'/>
-          </div>
+          <Combobox
+            value={search}
+            onChange={setSearch}
+            suggestions={posts}
+            placeholder="Search"
+          />
           <p className='text-body-1 text-brown-400 pt-4 pb-1 desktop:hidden'>Category</p>
           <SelectDemo
             selectedCategory={selectedCategory}
