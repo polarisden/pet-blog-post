@@ -165,7 +165,7 @@ function ArticleSection(){
             />
           ))}
         </div>
-        {hasMore && (
+        {hasMore && !search && filteredPostData.length > 0 && (
           <button 
             className='text-body-1 underline underline-offset-2 text-brown-600 py-6 cursor-pointer active:text-brown-400 desktop:pb-[80px] desktop:pt-0 desktop:hover:text-brown-400 transition-colors'
             onClick={() => setPage(page + 1)}

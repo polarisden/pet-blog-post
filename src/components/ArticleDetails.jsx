@@ -6,6 +6,7 @@ import { formatDate } from "@/utils/formatDate"
 import { Smile, Copy, Facebook, Linkedin, Twitter } from "lucide-react"
 import Footer from "./Footer"
 import { toast, Toaster } from "sonner"
+import RequireLogin from "./RequireLogin"
 
 const categoryColors = {
   Highlight: { text: 'text-brand-green', bg: 'bg-brand-green-soft' },
@@ -19,6 +20,7 @@ function ArticleDetails() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
   const [countLike, setCountLike] = useState(0)
+  const [showLoginModal, setShowLoginModal] = useState(false)
   const params = useParams()
 
   useEffect(() => {
@@ -61,9 +63,6 @@ function ArticleDetails() {
     }
   }
 
-  function handleCountLike(){
-    console.log("o")
-  }
 
   return (
     <>
@@ -119,7 +118,7 @@ function ArticleDetails() {
               {/* Like Counter */}
               <div 
                 className="flex items-center justify-center gap-2 border bg-white border-brown-400 rounded-full py-3 px-6 group cursor-pointer hover:bg-brown-200 transition-colors"
-                onClick={handleCountLike}
+                onClick={() => setShowLoginModal(true)}
               >
                 <Smile className="w-5 h-5 text-brown-500" />
                 <span className="text-body-1 text-brown-600">{countLike || 321}</span>
@@ -254,6 +253,10 @@ function ArticleDetails() {
         </div>
       </div>
       <Footer />
+      <RequireLogin 
+        isOpen={showLoginModal} 
+        onClose={() => setShowLoginModal(false)} 
+      />
     </>
   )
 }

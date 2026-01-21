@@ -43,7 +43,10 @@ function NavBar(){
 
         {/* Desktop Buttons */}
         <div className="gap-2 hidden desktop:flex">
-          <button className="desktop:h-[48px] desktop:w-[127px] desktop:border desktop:rounded-[999px] desktop:border-brown-400 desktop:text-body-1 desktop:text-brown-600 desktop:cursor-pointer desktop:transition-all desktop:duration-200 desktop:hover:bg-brown-300 desktop:hover:border-brown-500">Log in</button>
+          <button 
+            className="desktop:h-[48px] desktop:w-[127px] desktop:border desktop:rounded-[999px] desktop:border-brown-400 desktop:text-body-1 desktop:text-brown-600 desktop:cursor-pointer desktop:transition-all desktop:duration-200 desktop:hover:bg-brown-300 desktop:hover:border-brown-500"
+            onClick={() => navigate('/login')}
+          >Log in</button>
           <button 
             className="desktop:h-[48px] desktop:w-[141px] desktop:rounded-[999px] desktop:bg-brown-600 desktop:text-body-1 desktop:text-white desktop:cursor-pointer desktop:transition-all desktop:duration-200 desktop:hover:bg-brown-400"
             onClick={() => navigate('/sign-up')}
