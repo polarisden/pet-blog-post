@@ -29,11 +29,13 @@ function NavBar(){
               <Button 
                 variant="outline" 
                 className="w-full h-[48px] rounded-[999px] border-brown-400 text-brown-600 bg-white hover:bg-gray-50"
+                onClick={() => navigate('/login')}
               >
                 Log in
               </Button>
               <Button 
                 className="w-full h-[48px] rounded-[999px] bg-brown-600 text-white hover:bg-brown-700"
+                onClick={() => navigate('/sign-up')}
               >
                 Sign up
               </Button>

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import validateSignup from "@/utils/validateSignup"
 import { Check } from "lucide-react"
 
-function SignupLoginPage(){
+function SignupPage(){
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -124,4 +124,4 @@ function SignupLoginPage(){
   )
 }
 
-export default SignupLoginPage
+export default SignupPage
