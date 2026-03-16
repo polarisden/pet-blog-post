@@ -19,21 +19,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install backend dependencies
-        working-directory: ./pet-blog-post-db
-        run: npm install
-
-      - name: Run backend tests (optional)
-        if: false
-        working-directory: ./pet-blog-post-db
-        run: npm test
-
-      - name: Install frontend dependencies
-        working-directory: ./pet-blog-post
+      - name: Install dependencies
         run: npm install
 
       - name: Build frontend
-        working-directory: ./pet-blog-post
         run: npm run build
 
       - name: Copy project to server and restart with PM2
@@ -62,18 +51,6 @@ jobs:
               git pull origin main
             fi
 
-            # ติดตั้ง backend และ restart PM2
-            cd pet-blog-post-db
-            npm install --production
-
-            # เปลี่ยนชื่อ app ตามที่คุณใช้ในเซิร์ฟเวอร์
-            pm2 startOrReload ecosystem.config.cjs --only pet-blog-api || pm2 restart pet-blog-api
-
-            # ติดตั้งและ build frontend (ถ้ารันด้วย PM2/Node)
-            cd ../pet-blog-post
+            # ติดตั้งและ build frontend จาก root โปรเจกต์
             npm install --production
             npm run build
-
-            # ถ้าคุณ serve frontend ด้วย PM2 (เช่นผ่าน Express/serve)
-            # เปลี่ยนชื่อ app ให้ตรงกับใน ecosystem.config.cjs
-            pm2 startOrReload ecosystem.config.cjs --only pet-blog-frontend || pm2 restart pet-blog-frontend
