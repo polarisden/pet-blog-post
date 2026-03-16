@@ -25,17 +25,17 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Copy files to server via SCP
+      - name: Copy dist to server via SCP
         uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           port: ${{ secrets.SSH_PORT }}
-          source: ".,!node_modules"
-          target: /var/www/pet-blog-post
+          source: "dist/"
+          target: /var/www/pet-blog-post/pet-blog-post
 
-      - name: Restart app with PM2
+      - name: Reload Nginx
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -44,7 +44,5 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
-            cd /var/www/pet-blog-post
-            npm install --production
-            pm2 restart pet-blog-post || pm2 start npm --name "pet-blog-post" -- start
-            pm2 save
+            nginx -t
+            systemctl reload nginx
