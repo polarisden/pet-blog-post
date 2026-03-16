@@ -25,7 +25,17 @@ jobs:
       - name: Build frontend
         run: npm run build
 
-      - name: Copy project to server and restart with PM2
+      - name: Copy files to server via SCP
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          port: ${{ secrets.SSH_PORT }}
+          source: ".,!node_modules"
+          target: /var/www/pet-blog-post
+
+      - name: Restart app with PM2
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -34,27 +44,7 @@ jobs:
           port: ${{ secrets.SSH_PORT }}
           script: |
             set -e
-
-            # เปลี่ยนเป็น path โปรเจกต์บนเซิร์ฟเวอร์ของคุณ
-            APP_DIR=/var/www/pet-blog-post
-
-            # เตรียมโฟลเดอร์ SSH และเพิ่ม host key ของ GitHub (แก้ Host key verification failed)
-            mkdir -p ~/.ssh
-            ssh-keyscan github.com >> ~/.ssh/known_hosts 2>/dev/null
-
-            if [ ! -d "$APP_DIR" ]; then
-              mkdir -p "$APP_DIR"
-            fi
-
-            cd "$APP_DIR"
-
-            # ถ้าโฟลเดอร์ .git ยังไม่มี ให้ clone ครั้งแรก
-            if [ ! -d ".git" ]; then
-              git clone ${{ secrets.REPO_SSH_URL }} .
-            else
-              git pull origin main
-            fi
-
-            # ติดตั้งและ build frontend จาก root โปรเจกต์
+            cd /var/www/pet-blog-post
             npm install --production
-            npm run build
+            pm2 restart pet-blog-post || pm2 start npm --name "pet-blog-post" -- start
+            pm2 save
