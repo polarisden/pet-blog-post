@@ -1,4 +1,8 @@
+import { useNavigate } from 'react-router-dom'
+
 function BlogCard(props) {
+  const navigate = useNavigate()
+  
   const categoryColors = {
     Highlight: {
       text: 'text-brand-green',
@@ -18,15 +22,24 @@ function BlogCard(props) {
     }
   }
 
+  const handleClick = () => {
+    navigate(`/posts/${props.postId}`)
+  }
 
   return (
     <>
-      <div className="flex flex-col px-4 desktop:px-0 desktop:pb-6">
+      <div className="flex flex-col px-4 desktop:px-0 desktop:pb-6 group cursor-pointer" onClick={handleClick}>
         <div className="flex flex-col gap-4">
-          <img src={props.image} className="rounded-[16px] h-[212px] w-[343px] object-cover desktop:w-[590px] desktop:h-[360px]" alt={props.title}/>
+          <div className="overflow-hidden rounded-[16px]">
+            <img 
+              src={props.image} 
+              className="h-[212px] w-[343px] object-cover desktop:w-[595px] desktop:h-[360px] transition-transform duration-300 ease-out group-hover:scale-105" 
+              alt={props.title}
+            />
+          </div>
           <div className="flex flex-col gap-2">
             <p className={`py-1 px-3 text-body-2 rounded-full w-fit h-[30px] ${categoryColors?.[props?.category].text} ${categoryColors?.[props?.category].bg}`}>{props.category}</p>
-            <h4 className="text-headline-4 text-brown-600">{props.title}</h4>
+            <h4 className="text-headline-4 text-brown-600 transition-colors duration-200 group-hover:text-brown-400">{props.title}</h4>
             <p className="text-body-2 text-brown-400">{props.description}</p>
           </div>
           <div className="flex gap-[16px]">
